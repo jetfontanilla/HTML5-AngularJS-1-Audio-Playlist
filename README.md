@@ -15,4 +15,8 @@ Native HTML5 Audio Playlist using Angular 1
   $ npm install
   ```
 
-1. open index.html on your browser to view the script in action
+1. on your terminal type the following command to open live-server and open the script in a browser window
+
+  ```bash
+  $ live-server
+  ```
