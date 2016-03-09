@@ -1,8 +1,8 @@
 angular
     .module('AudioListApp')
-    .controller('AudioListController', ['$http', AudioListController]);
+    .controller('AudioListController', ['$scope', '$http', AudioListController]);
 
-function AudioListController($http) {
+function AudioListController($scope, $http) {
     this.data = [];
 
     var self = this;
@@ -11,4 +11,10 @@ function AudioListController($http) {
             self.data = response.data;
         })
     })(self);
+
+    $scope.$on('currentRowId', function(event, rowId) {
+        $scope.$applyAsync(function() {
+            self.currentRowId = rowId;
+        });
+    });
 }

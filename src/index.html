@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Sample HTML5 Audio Playlist Usage</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
 </head>
 <body>
 
+<div class="container">
+    <h2>Sample HTML5 Audio Playlist</h2>
 
-<div class="container" ng-app="AudioListApp" ng-controller="AudioListController as audioList">
-    <div class="bg-primary row">
-        <div class="col-md-2 text-center"><strong>ID</strong></div>
-        <div class="col-md-2"><strong>Name</strong></div>
-        <div class="col-md-2 text-center"><strong>Play</strong></div>
-    </div>
-    <div ng-repeat="audioObj in audioList.data" class="row">
-        <div class="col-md-2 text-center" ng-bind="audioObj.audioID"></div>
-        <div class="col-md-2" ng-bind="audioObj.name"></div>
-        <div class="col-md-2 text-center">
-            <span audio-player audio-src="{{audioObj.audioURL}}"></span>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Sample Playlist
         </div>
+        <table class="table table-hover" ng-app="AudioListApp" ng-controller="AudioListController as audioList">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Play</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="audioObj in audioList.data" ng-class="{warning: audioList.currentRowId == audioObj.audioID}">
+                <td ng-bind="audioObj.audioID"></td>
+                <td ng-bind="audioObj.name"></td>
+                <td>
+                    <span audio-player audio-src="{{audioObj.audioURL}}" row-id="{{audioObj.audioID}}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>
+
 
 
 <script type="text/javascript" src="node_modules/angular/angular.js"></script>
 <script type="text/javascript" src="app/audioListBootstrap.js"></script>
+<script type="text/javascript" src="app/uniqueIdFactory.js"></script>
 <script type="text/javascript" src="app/audioListController.js"></script>
 <script type="text/javascript" src="app/audioPlayerDirective.js"></script>
 
