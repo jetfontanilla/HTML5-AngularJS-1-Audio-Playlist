@@ -58,7 +58,7 @@ function audioPlayer() {
     var template = '<button type="button" class="btn btn-danger">' +
         '<span class="glyphicon" ng-class="{' +
         '\'glyphicon-pause\': audioPlayer.isPlaying(),' +
-        '\'glyphicon-play\': !audioPlayer.isPlaying()' +
+        '\'glyphicon-play\': audioPlayer.isPaused() || audioPlayer.isStopped()' +
         '}"></span>' +
         '</button>' +
         '<audio ng-src="{{audioPlayer.src}}" id="{{audioPlayer.id}}">' +
@@ -97,6 +97,13 @@ function audioPlayer() {
             return this.status == STATUS_STOP;
         };
 
+        function setPlayerStatus(status) {
+            self.status = status;
+            $scope.$applyAsync(function() {
+                self.status = status;
+            })
+        }
+
         this.play = function() {
             if (self.isPlaying()) {
                 return;
@@ -119,7 +126,7 @@ function audioPlayer() {
                 return;
             }
             currentAudio.pause();
-            self.status = STATUS_PAUSE;
+            setPlayerStatus(STATUS_PAUSE);
         };
 
         this.stop = function() {
@@ -133,7 +140,7 @@ function audioPlayer() {
             }
             currentAudio.pause();
             currentAudio.currentTime = 0;
-            self.status = STATUS_STOP;
+            setPlayerStatus(STATUS_STOP);
         };
 
         this.initialize = function(elem, attrs) {
@@ -168,11 +175,11 @@ function audioPlayer() {
         function setUpHandlers(currentAudio) {
             currentAudio.addEventListener('playing', function() {
                 $scope.$emit('currentRowId', self.rowId);
-                self.status = STATUS_PLAY;
+                setPlayerStatus(STATUS_PLAY);
             });
 
             currentAudio.addEventListener('ended', function() {
-                self.status = STATUS_STOP;
+                setPlayerStatus(STATUS_STOP);
             });
         }
 
