@@ -1,6 +1,13 @@
 # HTML5-AngularJS-1-Audio-Playlist
 Native HTML5 Audio Playlist using Angular 1
 
+![alt text](https://raw.githubusercontent.com/jetlogs/HTML5-AngularJS-1-Audio-Playlist/master/sample-preview.gif "sample preview")
+## Requirements
+* [git or any git client](https://git-scm.com/downloads)
+* [NodeJS and npm](https://nodejs.org)
+
+## Installation
+
 1. Clone the repository into a directory
 
   ```bash
